@@ -5,10 +5,16 @@ const express = require('express');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 
-const tracksRouter = require('./controllers/tracks');
 
 
 const app = express();
+
+//Middleware
+app.use(cors());
+app.use(express.json());
+app.use(methodOverride('_method'));
+app.use(express.urlencoded({ extended: false }));
+
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI);
@@ -17,18 +23,10 @@ mongoose.connection.on('connected', () => {
     console.log(`Connected to MongoDB ${mongoose.connection.name}.`);
 });
 
-app.use(cors());
-
-// Enable parsing of JSON bodies in requests
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(methodOverride('_method'));
-
-// Enable method override to support PUT and DELETE requests via forms
-app.use(methodOverride('_method'));
-
 // Routes go here
+const tracksRouter = require('./controllers/tracks');
 app.use('/tracks', tracksRouter);
+
 
 app.listen(3000, () => {
     console.log('The express app is ready!');
