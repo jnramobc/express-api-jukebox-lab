@@ -11,10 +11,5 @@ const trackSchema = new mongoose.Schema({
     },
 });
 
-// trackSchema.set('toJSON', {
-//     transform: (document, returnedObject) => {
-//         delete returnedObject.hashedPassword;
-//     }
-// });
-
-module.exports = mongoose.model('Track', trackSchema);
+const Track = mongoose.model('Track', trackSchema);
+module.exports = Track;
