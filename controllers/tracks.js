@@ -30,9 +30,9 @@ router.get('/:id', async (req, res) => {//getting a single track
         console.log(track)
             res.status(200).json(track)
     }
-        catch(error){
-            console.log(error);
-            res.status(500).json({error:error.message});
+    catch(error){
+        console.log(error);
+        res.status(500).json({error:error.message});
 
     }
 });
